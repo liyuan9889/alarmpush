@@ -1,15 +1,19 @@
 package com.tuhui.alarmpush.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 
-@Component
+@Slf4j
 public class RestTemplateUtil {
 
     /**
@@ -19,21 +23,10 @@ public class RestTemplateUtil {
      */
     public static String getResponse(String url) {
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-        requestFactory.setConnectTimeout(200000);// 设置超时
-        requestFactory.setReadTimeout(200000);
+        requestFactory.setConnectTimeout(100000);// 设置超时
+        requestFactory.setReadTimeout(100000);
 
-        HttpsClientRequestFactory httpsClientRequestFactory = new HttpsClientRequestFactory();
-        httpsClientRequestFactory.setConnectTimeout(20000);
-        httpsClientRequestFactory.setReadTimeout(20000);
-
-        RestTemplate restTemplate;
-        int index = url.indexOf("https:");
-        if (index != -1){
-            restTemplate = new RestTemplate(httpsClientRequestFactory);
-        } else {
-            restTemplate = new RestTemplate(requestFactory);
-        }
-
+        RestTemplate restTemplate = new RestTemplate(requestFactory);
         String response = restTemplate.getForEntity(url, String.class).getBody();
         return response;
     }
@@ -43,11 +36,11 @@ public class RestTemplateUtil {
      * @param url
      * @return
      */
-    public static String postResponse(String url, MultiValueMap<String, String> map){
+    public static String postFormResponse(String url, MultiValueMap<String, String> map){
         //复杂构造函数的使用
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-        requestFactory.setConnectTimeout(200000);// 设置超时
-        requestFactory.setReadTimeout(200000);
+        requestFactory.setConnectTimeout(100000);// 设置超时
+        requestFactory.setReadTimeout(100000);
 
         RestTemplate restTemplate = new RestTemplate(requestFactory);
         restTemplate.getMessageConverters().set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
@@ -68,17 +61,57 @@ public class RestTemplateUtil {
     public static String postJsonResponse(String url, JSONObject jsonObject){
         //复杂构造函数的使用
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-        requestFactory.setConnectTimeout(200000);// 设置超时
-        requestFactory.setReadTimeout(200000);
+        requestFactory.setConnectTimeout(100000);// 设置超时
+        requestFactory.setReadTimeout(100000);
+        String result = "";
+        try {
+            RestTemplate restTemplate = new RestTemplate(requestFactory);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("accept", "*/*");
+            headers.add("connection", "Keep-Alive");
+            headers.add("Content-Type", "application/json");
+            HttpEntity<String> formEntity = new HttpEntity<>(jsonObject.toString(), headers);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, formEntity, String.class);
+            result = response.getBody();
+        }  catch (Exception e) {
+            log.error("POST方式JSON请求发生异常:{}", e);
+        }
 
-        RestTemplate restTemplate = new RestTemplate(requestFactory);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("accept", "*/*");
-        headers.add("connection", "Keep-Alive");
-        headers.add("Content-Type", "application/json");
-        HttpEntity<String> formEntity = new HttpEntity<>(jsonObject.toString(), headers);
-        String response = restTemplate.exchange(url, HttpMethod.POST, formEntity, String.class).getBody();
-        return response;
+        return result;
+    }
+
+    /**
+     * 文件上传
+     * @param url
+     * @param token
+     * @param filePath
+     * @return
+     */
+    public static String uploadFile(String url, String token, String filePath) {
+        //复杂构造函数的使用
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        requestFactory.setConnectTimeout(100000);// 设置超时
+        requestFactory.setReadTimeout(100000);
+        String result = "";
+        try {
+            RestTemplate restTemplate = new RestTemplate(requestFactory);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+            headers.add("accept", "*/*");
+            headers.add("connection", "Keep-Alive");
+            FileSystemResource resource = new FileSystemResource(new File(filePath));
+            MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
+            param.add("corp_token", token);
+            param.add("resourceType", 1);
+            param.add("resource", resource);
+            HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<MultiValueMap<String, Object>>(param, headers);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
+            result = response.getBody();
+        } catch (Exception e) {
+            log.error("上传文件发生异常:{}", e);
+        }
+
+        return result;
     }
 
 }

@@ -20,9 +20,15 @@ dt:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://32.33.63.42:3306/face?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai
+#    url: jdbc:mysql://32.33.63.42:3306/face?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai
+#    username: dev
+#    password: dev123456
+    url: jdbc:mysql://localhost:3306/face?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai
     username: dev
     password: dev123456
+#    url: jdbc:mysql://localhost:3306/face?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: 123456
     #    type: com.alibaba.druid.pool.DruidDataSource
     # 从库数据源
     # 初始连接数
@@ -89,3 +95,11 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+
+# Halo平台配置
+halo:
+  app_code: 4e8439ce-af50-400f-a02e-ac23005f27c7
+  app_key: 3487315dd814caff3acb90b0ca1bbbbe
+  app_secret: 8bbedb605ac4101cbaf5e3089c5123a0a9ae85b6
+  grant_type: client_credential
+  openOrgDomain: NgQqQiNPIA1nFHMSP1E7R3MWLhopEHMWO1o8CTkUIBAgRmsKOghtQCFCcENzQ3YQIhV2QQ

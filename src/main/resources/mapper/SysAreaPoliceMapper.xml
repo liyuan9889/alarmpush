@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuhui.alarmpush.mapper.SysAreaPoliceMapper">
+
+    <resultMap type="SysAreaPolice" id="SysAreaPoliceResult">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="mobile" column="mobile"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="areaId" column="area_id"/>
+        <result property="isRecvAll" column="is_recv_all"/>
+        <result property="userOpenId" column="user_open_id"/>
+    </resultMap>
+
+    <sql id="selectSysAreaPoliceVo">
+        select id, `name`, mobile, del_flag, area_id, is_recv_all, user_open_id from sys_area_police
+    </sql>
+
+    <select id="selectSysAreaPoliceList" parameterType="SysAreaPolice" resultMap="SysAreaPoliceResult">
+        <include refid="selectSysAreaPoliceVo"/>
+        <where>
+            <if test="delFlag != null  and delFlag != ''">and del_flag = #{delFlag}</if>
+            <if test="isRecvAll != null  and isRecvAll != ''">and is_recv_all = #{isRecvAll}</if>
+        </where>
+    </select>
+
+    <update id="batchUpdateSysAreaPoliceById" parameterType="java.util.List">
+        <foreach collection="list" separator=";" item="item" open="" close="" >
+            update sys_area_police
+            <set>
+                user_open_id = #{item.userOpenId},
+            </set>
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+</mapper>
