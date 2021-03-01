@@ -15,6 +15,7 @@ server:
 dt:
   dir : 'd:/face/'
   suffix : 'face.jpg'
+  polices : '22,23,23,4,6'
 
 # 数据源配置
 spring:

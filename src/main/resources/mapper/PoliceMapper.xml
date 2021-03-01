@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuhui.alarmpush.mapper.PoliceMapper">
+  <resultMap id="BaseResultMap" type="com.tuhui.alarmpush.domain.Police">
+    <id     column="id"                  jdbcType="BIGINT"    property="id"             />
+    <result column="name"                jdbcType="VARCHAR"   property="name"           />
+    <result column="mobile"              jdbcType="VARCHAR"   property="mobile"         />
+    <result column="del_flag"            jdbcType="VARCHAR"   property="del_flag"       />
+    <result column="area_id"             jdbcType="BIGINT"    property="area_id"        />
+    <result column="is_recv_all"         jdbcType="VARCHAR"   property="is_recv_all"    />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    select id, name, mobile, del_flag, area_id, is_recv_all  from sys_area_police
+  </sql>
+  <select id="selectPoliceListByAreaId" resultType="string" parameterType="int">
+    <include refid="Base_Column_List"/>
+      where area_id = #{area_id} and del_flag = '0'
+      and mobile is not null and is_recv_all = '0'
+  </select>
+
+  <select id="selectPoliceListByIsR" resultType="string">
+    <include refid="Base_Column_List"/>
+     where is_recv_all = '1' and del_flag = '0' and mobile is not null
+  </select>
+</mapper>

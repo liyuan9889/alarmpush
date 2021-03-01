@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuhui.alarmpush.mapper.AlarmMapper">
+  <resultMap id="BaseResultMap" type="com.tuhui.alarmpush.domain.Alarm">
+    <id     column="id"                    jdbcType="BIGINT"   property="id"                 />
+    <result column="comparisonDate"        jdbcType="TIMESTAMP" property="comparisonDate"     />
+    <result column="faceUserLibrary"       jdbcType="BIGINT"   property="faceUserLibrary"    />
+    <result column="faceImages"            jdbcType="BIGINT"   property="faceImages"         />
+    <result column="matchingDegree"        jdbcType="DOUBLE"   property="matchingDegree"     />
+    <result column="comparisonFrom"        jdbcType="BIGINT"      property="comparisonFrom"     />
+    <result column="deployDefenceCode"     jdbcType="VARCHAR"  property="deployDefenceCode"  />
+    <result column="equipmentCode"         jdbcType="VARCHAR"  property="equipmentCode"      />
+    <result column="deployDefenceName"     jdbcType="VARCHAR"  property="deployDefenceName"  />
+    <result column="areaId"                jdbcType="BIGINT"  property="areaId"             />
+    <result column="equipmentName"         jdbcType="VARCHAR"  property="equipmentName"      />
+    <result column="largeImagePath"        jdbcType="VARCHAR"  property="largeImagePath"     />
+    <result column="largeImageFileName"    jdbcType="VARCHAR"  property="largeImageFileName" />
+    <result column="smallImagePath"        jdbcType="VARCHAR"  property="smallImagePath"     />
+    <result column="smallImageFileName"    jdbcType="VARCHAR"  property="smallImageFileName" />
+    <result column="videoUrl"              jdbcType="VARCHAR"  property="videoUrl"           />
+    <result column="faceImagePath"         jdbcType="VARCHAR"  property="faceImagePath"      />
+    <result column="faceUserCode"          jdbcType="VARCHAR"  property="faceUserCode"       />
+    <result column="isWarning"             jdbcType="BIGINT"      property="isWarning"          />
+    <result column="del_flag"              jdbcType="VARCHAR"  property="del_flag"           />
+    <result column="handlePeople"          jdbcType="VARCHAR"  property="handlePeople"       />
+    <result column="isSeize"               jdbcType="BIGINT"      property="isSeize"            />
+    <result column="isConfirm"             jdbcType="BIGINT"      property="isConfirm"          />
+    <result column="faceTypeName"          jdbcType="VARCHAR"  property="faceTypeName"       />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, comparisonDate, faceUserLibrary, faceImages, matchingDegree, comparisonFrom, deployDefenceCode, equipmentCode, deployDefenceName, areaId, equipmentName, largeImagePath, largeImageFileName, smallImagePath, smallImageFileName, videoUrl, faceImagePath, faceUserCode, isWarning,
+    del_flag, handlePeople, isSeize, isConfirm, faceTypeName
+  </sql>
+
+  <sql id="faceUserCode" >
+    select id,faceUserCode,faceImages,largeImagePath,smallImagePath,faceImagePath,comparisonDate,areaId from t_alarm_info
+  </sql>
+
+
+  <select id="selectsCodeByImgName" parameterType="com.tuhui.alarmpush.domain.Alarm"  resultMap="BaseResultMap">
+    <include refid="faceUserCode"/>
+    <where>
+      <if test="largeImageFileName != null and largeImageFileName != '' "> and largeImageFileName = #{largeImageFileName}</if>
+      and del_flag = '0'
+    </where>
+  </select>
+
+    <update id="updateDelFlag" parameterType="string">
+        update t_alarm_info  set del_flag = '1' where id = #{id}
+    </update>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!--<insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tuhui.dtface.domain.Face" useGeneratedKeys="true">-->
+    <!--insert into face_snap2 (cam_code, capture_time,-->
+      <!--capture_url, large_url)-->
+    <!--values (#{camCode,jdbcType=VARCHAR}, #{captureTime,jdbcType=TIMESTAMP},-->
+      <!--#{captureUrl,jdbcType=VARCHAR}, #{largeUrl,jdbcType=VARCHAR})-->
+  <!--</insert>-->
+</mapper>

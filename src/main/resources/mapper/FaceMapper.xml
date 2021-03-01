@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuhui.alarmpush.mapper.FaceMapper">
+  <resultMap id="BaseResultMap" type="com.tuhui.alarmpush.domain.Face">
+    <id column="id"                 jdbcType="BIGINT"   property="id"               />
+    <result column="create_date"        jdbcType="TIMESTAMP" property="create_date"      />
+    <result column="del_flag"           jdbcType="VARCHAR"  property="del_flag"         />
+    <result column="update_date"        jdbcType="TIMESTAMP" property="update_date"      />
+    <result column="remarks"            jdbcType="VARCHAR"  property="remarks"          />
+    <result column="card_num"           jdbcType="VARCHAR"  property="card_num"         />
+    <result column="face_name"          jdbcType="VARCHAR"  property="face_name"        />
+    <result column="face_sex"           jdbcType="VARCHAR"  property="face_sex"         />
+    <result column="height"             jdbcType="VARCHAR"      property="height"           />
+    <result column="place_origin"       jdbcType="VARCHAR"  property="place_origin"     />
+    <result column="weight"             jdbcType="VARCHAR"      property="weight"           />
+    <result column="create_by"          jdbcType="BIGINT"   property="create_by"        />
+    <result column="update_by"          jdbcType="BIGINT"   property="update_by"        />
+    <result column="face_type"          jdbcType="VARCHAR"  property="face_type"        />
+    <result column="area"               jdbcType="VARCHAR"  property="area"             />
+    <result column="arrest_bonus"       jdbcType="VARCHAR"  property="arrest_bonus"     />
+    <result column="arrest_code"        jdbcType="VARCHAR"  property="arrest_code"      />
+    <result column="birth_day"          jdbcType="VARCHAR"  property="birth_day"        />
+    <result column="contact"            jdbcType="VARCHAR"  property="contact"          />
+    <result column="face_name_ever"     jdbcType="VARCHAR"  property="face_name_ever"   />
+    <result column="phone"              jdbcType="VARCHAR"  property="phone"            />
+    <result column="s_code"             jdbcType="VARCHAR"  property="s_code"           />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+   id, create_date, del_flag, update_date, remarks, card_num, face_name, face_sex,
+  height, place_origin, weight, create_by, update_by, face_type, area, arrest_bonus,
+   arrest_code, birth_day, contact, face_name_ever, phone, s_code
+
+  </sql>
+
+  <!--<insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tuhui.dtface.domain.Face" useGeneratedKeys="true">-->
+    <!--insert into face_snap2 (cam_code, capture_time,-->
+      <!--capture_url, large_url)-->
+    <!--values (#{camCode,jdbcType=VARCHAR}, #{captureTime,jdbcType=TIMESTAMP},-->
+      <!--#{captureUrl,jdbcType=VARCHAR}, #{largeUrl,jdbcType=VARCHAR})-->
+  <!--</insert>-->
+
+  <!--<insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tuhui.dtface.domain.Face" useGeneratedKeys="true">-->
+    <!--insert into face_snap2 (cam_code, capture_time,-->
+      <!--capture_img, largeImage)-->
+    <!--values (#{camCode,jdbcType=VARCHAR}, #{captureTime,jdbcType=TIMESTAMP},-->
+      <!--#{captureImg,jdbcType=VARCHAR}, #{largeImage,jdbcType=VARCHAR})-->
+  <!--</insert>-->
+
+    
+    <!--<delete id="deleteOneHour" >-->
+        <!--delete  f from face_snap2  f INNER JOIN   ( select id from face_snap2 f  where date_sub(now(), interval 1 hour) >  capture_time) as idd-->
+       <!--on  f.id = idd.id-->
+    <!--</delete>-->
+
+</mapper>
