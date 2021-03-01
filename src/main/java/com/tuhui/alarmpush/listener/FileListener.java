@@ -55,9 +55,9 @@ public class FileListener extends FileAlterationListenerAdaptor {
                        long cTime = alarm.getComparisonDate().getTime();  //抓拍时间
                        long nTime = new Date().getTime();  //当前时间
 
-                       log.info("抓拍时间--当前时间:{}",cTime +"-"+ nTime);
+                       log.info("抓拍时间--当前时间:{}",(cTime/1000) +"-"+ (nTime/1000));
                        //判断是否超过一分钟
-                       if(Math.abs(cTime - nTime) <= 3600){
+                       if(Math.abs((cTime/1000) - (nTime/1000)) <= 3600){
                            List<Police> list = null;
                            List<Police> list2 = null;
                            List<Police> all = new ArrayList<>();
@@ -85,7 +85,7 @@ public class FileListener extends FileAlterationListenerAdaptor {
                            official.setPoliceList(all);
                            official.setSmallImg(smallP);
                             //信息描述
-                           Face face = Initialize.sfaceService.selectInfoById(alarm.getId());
+                           Face face = Initialize.sfaceService.selectInfoById(alarm.getFaceUserLibrary());
                            //判断是否推送成功
                             official.setContent("地点: " + "[" + alarm.getDeployDefenceName() + "] " + alarm.getEquipmentName()
                                     +", 时间: " + alarm.getComparisonDate().toString()

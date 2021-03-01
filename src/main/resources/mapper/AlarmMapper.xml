@@ -36,7 +36,7 @@
   </sql>
 
   <sql id="faceUserCode" >
-    select id,faceUserCode,faceImages,largeImagePath,smallImagePath,faceImagePath,comparisonDate,areaId,equipmentCode,deployDefenceName from t_alarm_info
+    select id,faceUserLibrary,faceUserCode,faceImages,largeImagePath,smallImagePath,faceImagePath,comparisonDate,areaId,equipmentCode,deployDefenceName,equipmentName from t_alarm_info
   </sql>
 
 
@@ -48,7 +48,7 @@
     </where>
   </select>
 
-    <update id="updateDelFlag" parameterType="string">
+    <update id="updateDelFlag" parameterType="int">
         update t_alarm_info  set del_flag = '1' where id = #{id}
     </update>
   
