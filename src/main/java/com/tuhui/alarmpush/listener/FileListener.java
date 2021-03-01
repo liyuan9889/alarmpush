@@ -37,12 +37,8 @@ public class FileListener extends FileAlterationListenerAdaptor {
      * 文件创建执行
      */
     public void onFileCreate(File file) {
-
-        log.info("[新建]:" + file.getAbsolutePath());
-        //触发以后  根据文件名查询数据库
-        String large = "GZC4001GA_2021_02_24_17_37_55_149_f86749_alarm_capt.jpg";
-//        alarmService.selectsCodeByImgName(file.getName());
-       Alarm alarm =  Initialize.salarmService.selectsCodeByImgName(large);
+        log.info("【新增文件】:"  + file.getName()  );
+       Alarm alarm =  Initialize.salarmService.selectsCodeByImgName(file.getName());
        if(alarm != null){
           String scode =  alarm.getFaceUserCode();
                String smallP =  alarm.getSmallImagePath(); //小图
@@ -68,7 +64,6 @@ public class FileListener extends FileAlterationListenerAdaptor {
                            List<Police> all = new ArrayList<>();
                            if(scode.contains("xf")  | scode.contains("XF")){
                                //信访人员指定推送
-                               String listP = polices;
                                all = Initialize.spoliceService.selectMobileByPoliceCodes(polices);
                             }else{
                                //找警员号  推送
@@ -97,8 +92,8 @@ public class FileListener extends FileAlterationListenerAdaptor {
                                     +", 编号: "+ face.getS_code()
                                     +", 姓名: "+ face.getFace_name()
                                     +", 身份证: "+ face.getCard_num() );
-
-                          if(0 == 0){
+                            int count =  Initialize.spushMsgService.pushMessage(official);
+                          if(count == 0){
                               //0  推送成功   修改t_alarm_info   del_flag  为1
                               int index =  Initialize.salarmService.updateDelFlag(alarm.getId());
                               if (index  == 0){
@@ -108,7 +103,6 @@ public class FileListener extends FileAlterationListenerAdaptor {
                               //1  推送失败   写日志
                               log.info("推送失败!");
                           }
-
                        }else{
                            log.error("三逃号:" + alarm.getFaceUserCode() + "  抓拍时间超过当前时间一分钟,不推送!");
                        }

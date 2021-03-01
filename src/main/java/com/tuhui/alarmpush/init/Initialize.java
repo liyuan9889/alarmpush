@@ -4,6 +4,7 @@ import com.tuhui.alarmpush.listener.FileListener;
 import com.tuhui.alarmpush.services.AlarmService;
 import com.tuhui.alarmpush.services.FaceService;
 import com.tuhui.alarmpush.services.PoliceService;
+import com.tuhui.alarmpush.services.PushMsgService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,10 +42,16 @@ public class Initialize  implements CommandLineRunner {
 
 
     @Autowired
+    private PushMsgService pushMsgService;
+
+    public static PushMsgService spushMsgService;
+
+    @Autowired
     private FileListener fileListener;
 
     @Override
     public void run(String... args) throws Exception {
+        spushMsgService = pushMsgService;
         sfaceService = faceService;
         spoliceService = policeService;
         salarmService = alarmService;
