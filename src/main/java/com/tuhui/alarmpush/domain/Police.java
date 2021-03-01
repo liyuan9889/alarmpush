@@ -12,4 +12,5 @@ public class Police implements Serializable {
     private  String    del_flag;
     private  int       area_id;
     private  String    is_recv_all;
+    private  String  user_open_id ;
 }
