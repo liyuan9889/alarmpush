@@ -6,6 +6,7 @@ import com.tuhui.alarmpush.domain.AjaxResult;
 import com.tuhui.alarmpush.domain.SysAreaPolice;
 import com.tuhui.alarmpush.services.AuthService;
 import com.tuhui.alarmpush.services.FileUploadService;
+import com.tuhui.alarmpush.services.PushMsgService;
 import com.tuhui.alarmpush.services.SysAreaPoliceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,20 +28,11 @@ import java.util.Map;
 public class TestController {
 
     @Autowired
-    private AuthService authService;
+    private PushMsgService pushMsgService;
     @Autowired
     private FileUploadService FileUploadService;
     @Autowired
     private SysAreaPoliceService sysAreaPoliceService;
-
-    @GetMapping(value ="/setToken")
-    public Object setToken(@RequestParam("token") String token) {
-        Map<String, String> map = new HashMap<>();
-        map.put("access_token", token);
-        map.put("time", new Date().getTime()+"");
-        AccessToken.getInstance().setMap(map);
-        return token;
-    }
 
     @GetMapping("/getToken")
     public Object getToken() {
@@ -70,5 +62,10 @@ public class TestController {
         return AjaxResult.success(sysAreaPoliceList);
     }
 
+    @GetMapping("/pushMsg")
+    public AjaxResult pushMsg(@RequestParam("filePath") String filePath, @RequestParam("userOpenId") String userOpenId) {
+        int code = pushMsgService.testPushMessage(filePath, userOpenId);
+        return AjaxResult.success(code);
+    }
 
 }

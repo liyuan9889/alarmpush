@@ -11,7 +11,7 @@ import java.util.List;
 public interface SysAreaPoliceService {
 
     /**
-     * 根据警号批量获取userOpenId
+     * 根据警号获取userOpenId
      * @return
      */
     String selectUserOpenIdByMobile(String token, String mobile);
@@ -29,5 +29,13 @@ public interface SysAreaPoliceService {
      * @return
      */
     int batchUpdateSysAreaPoliceById(List<SysAreaPolice> sysAreaPoliceList);
+
+    /**
+     * 根据警号更改userOpenId
+     * @param mobile
+     * @param userOpenId
+     * @return
+     */
+    int updateUserOpenIdByMobile(String mobile, String userOpenId);
 
 }

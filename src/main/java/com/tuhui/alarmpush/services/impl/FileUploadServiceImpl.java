@@ -28,7 +28,7 @@ public class FileUploadServiceImpl implements FileUploadService {
     private String openOrgDomain;
 
     /**
-     * 上传文件
+     * 单文件上传文件
      * @param token
      * @param filePath
      * @return 返回空值代表上传失败，有值则表示成功
@@ -36,13 +36,12 @@ public class FileUploadServiceImpl implements FileUploadService {
     @Override
     public String uploadFile(String token, String filePath) {
         String resourceId = "";
-        String url = UrlConstant.UPLOAD_URL.replace("CORP_TOKEN", token).replace("RESOURCE_TYPE", "1");
-        String result = RestTemplateUtil.uploadFile(url, token, filePath);
+        String result = RestTemplateUtil.uploadFile(UrlConstant.UPLOAD_URL, token, filePath);
         if (StringUtils.isNotEmpty(result)) {
             JSONObject jsonObject = JSON.parseObject(result);
             int errCode = (int) jsonObject.get("errcode");
             if (errCode == 0) {
-                resourceId = jsonObject.getJSONObject("data").getString("resourceId");
+                resourceId = jsonObject.getJSONObject("result").getString("resourceId");
             }
         }
         return resourceId;

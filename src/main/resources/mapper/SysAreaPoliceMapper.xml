@@ -36,4 +36,12 @@
         </foreach>
     </update>
 
+    <update id="updateUserOpenIdByMobile" parameterType="java.lang.String">
+        update sys_area_police
+        <set>
+            user_open_id = #{userOpenId},
+        </set>
+        where mobile = #{mobile}
+    </update>
+
 </mapper>

@@ -58,22 +58,9 @@ public class SysAreaPoliceImpl implements SysAreaPoliceService {
         return sysAreaPoliceMapper.batchUpdateSysAreaPoliceById(sysAreaPoliceList);
     }
 
-    public static void main(String[] args) {
-        String str = "{\n" +
-                "    \"errcode\":0,\n" +
-                "    \"errmsg\":\"请求成功\",\n" +
-                "    \"userInfoList\":[\n" +
-                "        {\n" +
-                "            \"key\":\"123.com\",\n" +
-                "            \"userInfo\":{\n" +
-                "                \"userOpenId\":\"aaa11123\"\n" +
-                "            }\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}";
-        JSONObject object = (JSONObject) JSONObject.parseObject(str).getJSONArray("userInfoList").get(0);
-        String userOpenId = object.getJSONObject("userInfo").getString("userOpenId");
-        System.out.println(userOpenId);
+    @Override
+    public int updateUserOpenIdByMobile(String mobile, String userOpenId) {
+        return sysAreaPoliceMapper.updateUserOpenIdByMobile(mobile, userOpenId);
     }
 
 }

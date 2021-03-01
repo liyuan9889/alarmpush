@@ -11,6 +11,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.charset.StandardCharsets;
 
 @Slf4j
@@ -99,6 +100,12 @@ public class RestTemplateUtil {
             headers.setContentType(MediaType.MULTIPART_FORM_DATA);
             headers.add("accept", "*/*");
             headers.add("connection", "Keep-Alive");
+            log.info("上传的文件路径：{}", filePath);
+            File testFile = new File(filePath);
+            if (!testFile.exists()){
+                log.error("文件不存在");
+                throw new FileNotFoundException("文件不存在");
+            }
             FileSystemResource resource = new FileSystemResource(new File(filePath));
             MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
             param.add("corp_token", token);
@@ -106,6 +113,7 @@ public class RestTemplateUtil {
             param.add("resource", resource);
             HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<MultiValueMap<String, Object>>(param, headers);
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
+            log.info("文件上传返回结果：{}", response);
             result = response.getBody();
         } catch (Exception e) {
             log.error("上传文件发生异常:{}", e);
