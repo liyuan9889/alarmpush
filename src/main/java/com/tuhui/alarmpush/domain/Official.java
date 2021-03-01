@@ -16,14 +16,5 @@ public class Official {
 
     private List<Police> policeList; //警员编号集合
 
-    private String idCard;
-
-    private String addr;
-
-    private String time;
-
-    private String code;
-
-    private String name;
-
+    private String content;
 }
