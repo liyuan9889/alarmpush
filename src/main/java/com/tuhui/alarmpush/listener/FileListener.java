@@ -30,9 +30,6 @@ import java.util.concurrent.TimeUnit;
 public class FileListener extends FileAlterationListenerAdaptor {
 
 
-    @Value("${dt.polices}")
-    private String polices;
-
     /**
      * 文件创建执行
      */
@@ -57,6 +54,8 @@ public class FileListener extends FileAlterationListenerAdaptor {
                        //比较时间
                        long cTime = alarm.getComparisonDate().getTime();  //抓拍时间
                        long nTime = new Date().getTime();  //当前时间
+
+                       log.info("抓拍时间--当前时间:{}",cTime +"-"+ nTime);
                        //判断是否超过一分钟
                        if(Math.abs(cTime - nTime) <= 3600){
                            List<Police> list = null;
@@ -64,7 +63,8 @@ public class FileListener extends FileAlterationListenerAdaptor {
                            List<Police> all = new ArrayList<>();
                            if(scode.contains("xf")  | scode.contains("XF")){
                                //信访人员指定推送
-                               all = Initialize.spoliceService.selectMobileByPoliceCodes(polices);
+                               log.info("polices:{}",Initialize.codes);
+                               all = Initialize.spoliceService.selectMobileByPoliceCodes(Initialize.codes);
                             }else{
                                //找警员号  推送
                                int areaId =  alarm.getAreaId();

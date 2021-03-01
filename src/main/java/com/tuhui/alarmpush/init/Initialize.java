@@ -25,6 +25,9 @@ public class Initialize  implements CommandLineRunner {
     @Value("${dt.suffix}")
     private String suffix;
 
+    @Value("${dt.polices}")
+    private String polices;
+
     @Autowired
     private AlarmService alarmService;
 
@@ -49,8 +52,11 @@ public class Initialize  implements CommandLineRunner {
     @Autowired
     private FileListener fileListener;
 
+    public static String codes ;
+
     @Override
     public void run(String... args) throws Exception {
+        codes = polices;
         spushMsgService = pushMsgService;
         sfaceService = faceService;
         spoliceService = policeService;
