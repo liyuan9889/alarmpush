@@ -123,6 +123,7 @@ public class PushMsgServiceImpl implements PushMsgService {
 
         log.info("推送消息Url：{}, 请求数据：{}", url, jsonObject);
         String result = RestTemplateUtil.postJsonResponse(url, jsonObject);
+        log.info("推送消息结果：{}", result);
         JSONObject resultJSON = JSONObject.parseObject(result);
         int errCode = resultJSON.getIntValue("errcode");
         return errCode;
