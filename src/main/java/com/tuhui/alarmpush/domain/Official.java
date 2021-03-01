@@ -2,6 +2,7 @@ package com.tuhui.alarmpush.domain;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
@@ -13,6 +14,16 @@ public class Official {
 
     private String faceImg;//证件照
 
-    private List<String> policeList; //警员编号集合
+    private List<Police> policeList; //警员编号集合
+
+    private String idCard;
+
+    private String addr;
+
+    private String time;
+
+    private String code;
+
+    private String name;
 
 }

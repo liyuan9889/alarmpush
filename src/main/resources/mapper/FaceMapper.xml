@@ -34,25 +34,11 @@
    arrest_code, birth_day, contact, face_name_ever, phone, s_code
 
   </sql>
-
-  <!--<insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tuhui.dtface.domain.Face" useGeneratedKeys="true">-->
-    <!--insert into face_snap2 (cam_code, capture_time,-->
-      <!--capture_url, large_url)-->
-    <!--values (#{camCode,jdbcType=VARCHAR}, #{captureTime,jdbcType=TIMESTAMP},-->
-      <!--#{captureUrl,jdbcType=VARCHAR}, #{largeUrl,jdbcType=VARCHAR})-->
-  <!--</insert>-->
-
-  <!--<insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tuhui.dtface.domain.Face" useGeneratedKeys="true">-->
-    <!--insert into face_snap2 (cam_code, capture_time,-->
-      <!--capture_img, largeImage)-->
-    <!--values (#{camCode,jdbcType=VARCHAR}, #{captureTime,jdbcType=TIMESTAMP},-->
-      <!--#{captureImg,jdbcType=VARCHAR}, #{largeImage,jdbcType=VARCHAR})-->
-  <!--</insert>-->
-
-    
-    <!--<delete id="deleteOneHour" >-->
-        <!--delete  f from face_snap2  f INNER JOIN   ( select id from face_snap2 f  where date_sub(now(), interval 1 hour) >  capture_time) as idd-->
-       <!--on  f.id = idd.id-->
-    <!--</delete>-->
+  
+  <select id="selectInfoById" resultMap="BaseResultMap"  parameterType="int"  >
+      SELECT card_num ,s_code ,face_name FROM face_user_library where id = #{id};
+  </select>
+  
+  
 
 </mapper>

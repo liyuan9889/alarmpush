@@ -13,16 +13,22 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    select id, name, mobile, del_flag, area_id, is_recv_all  from sys_area_police
+    select  mobile,user_open_id  from sys_area_police
   </sql>
-  <select id="selectPoliceListByAreaId" resultType="string" parameterType="int">
+  <select id="selectPoliceListByAreaId" resultType="com.tuhui.alarmpush.domain.Police" parameterType="int">
     <include refid="Base_Column_List"/>
       where area_id = #{area_id} and del_flag = '0'
       and mobile is not null and is_recv_all = '0'
   </select>
 
-  <select id="selectPoliceListByIsR" resultType="string">
+  <select id="selectPoliceListByIsR" resultType="com.tuhui.alarmpush.domain.Police">
     <include refid="Base_Column_List"/>
      where is_recv_all = '1' and del_flag = '0' and mobile is not null
   </select>
+    
+   <select id="selectMobileByPoliceCodes" resultType="com.tuhui.alarmpush.domain.Police" parameterType="string">
+       <include refid="Base_Column_List"/>
+       where mobile  in (#{polices})  and del_flag = '0'
+   </select>
+    
 </mapper>

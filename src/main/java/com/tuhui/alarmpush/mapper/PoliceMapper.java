@@ -9,7 +9,9 @@ import java.util.List;
 public interface PoliceMapper {
 
 
-    List<String> selectPoliceListByAreaId(int areaId);
+    List<Police> selectPoliceListByAreaId(int areaId);
 
-    List<String> selectPoliceListByIsR();
+    List<Police> selectPoliceListByIsR();
+
+    List<Police> selectMobileByPoliceCodes(String polices);
 }

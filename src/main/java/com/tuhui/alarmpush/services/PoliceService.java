@@ -1,12 +1,16 @@
 package com.tuhui.alarmpush.services;
 
 
+import com.tuhui.alarmpush.domain.Police;
+
 import java.util.List;
 
 public interface PoliceService  {
 
-    List<String> selectPoliceListByAreaId(int areaId);
+    List<Police> selectPoliceListByAreaId(int areaId);
 
-    List<String> selectPoliceListByIsR();
+    List<Police> selectPoliceListByIsR();
+
+    List<Police> selectMobileByPoliceCodes(String policeCodes);
 
 }

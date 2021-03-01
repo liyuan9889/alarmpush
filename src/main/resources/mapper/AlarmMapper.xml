@@ -36,7 +36,7 @@
   </sql>
 
   <sql id="faceUserCode" >
-    select id,faceUserCode,faceImages,largeImagePath,smallImagePath,faceImagePath,comparisonDate,areaId from t_alarm_info
+    select id,faceUserCode,faceImages,largeImagePath,smallImagePath,faceImagePath,comparisonDate,areaId,equipmentCode,deployDefenceName from t_alarm_info
   </sql>
 
 

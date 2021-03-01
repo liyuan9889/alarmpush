@@ -2,6 +2,7 @@ package com.tuhui.alarmpush.init;
 
 import com.tuhui.alarmpush.listener.FileListener;
 import com.tuhui.alarmpush.services.AlarmService;
+import com.tuhui.alarmpush.services.FaceService;
 import com.tuhui.alarmpush.services.PoliceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +34,18 @@ public class Initialize  implements CommandLineRunner {
 
     public  static PoliceService spoliceService;
 
+    @Autowired
+    private FaceService faceService;
+
+    public  static FaceService sfaceService;
+
 
     @Autowired
     private FileListener fileListener;
 
     @Override
     public void run(String... args) throws Exception {
+        sfaceService = faceService;
         spoliceService = policeService;
         salarmService = alarmService;
         fileListener.start(dir,suffix);
