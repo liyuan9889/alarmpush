@@ -96,7 +96,7 @@ public class FileListener extends FileAlterationListenerAdaptor {
                           if(count == 0){
                               //0  推送成功   修改t_alarm_info   del_flag  为1
                               int index =  Initialize.salarmService.updateDelFlag(alarm.getId());
-                              if (index  == 0){
+                              if (index  == 1){
                                   log.info("推送成功!");
                               }
                           }else{
