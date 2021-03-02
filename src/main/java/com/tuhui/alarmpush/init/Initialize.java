@@ -13,6 +13,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author lchao
@@ -58,12 +60,13 @@ public class Initialize  implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         codes = polices;
         spushMsgService = pushMsgService;
         sfaceService = faceService;
         spoliceService = policeService;
         salarmService = alarmService;
-        fileListener.start(dir +  "1" ,suffix);
+        fileListener.start(dir +  LocalDate.now().format(pattern) ,suffix);
         log.info("开始监控");
     }
 }

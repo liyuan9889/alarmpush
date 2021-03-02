@@ -149,6 +149,7 @@ public class FileListener extends FileAlterationListenerAdaptor {
     public  void start(String dir,String suffix) throws Exception{
         // 监控目录
         String rootDir = dir;
+        log.info("当前监控目录:{}",dir);
         // 轮询间隔 5 秒
         long interval = TimeUnit.SECONDS.toMillis(1);
         // 创建过滤器

@@ -25,22 +25,14 @@ public class AlarmSchedule {
     @Autowired
     private FileListener fileListener;
 
-    @Scheduled(cron = "0/40 * * * * ?")
+    @Scheduled(cron = "0 0 1 * * ?")
     private void configureTasks() {
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
-        LocalDate.now().format(pattern);
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             try {
                 monitor.stop();
-                fileListener.start(dir + "2" ,suffix);
+                fileListener.start(dir + LocalDate.now().format(pattern),suffix);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
     }
-
-    public static void main(String[] args) {
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
-        System.out.println(LocalDate.now().format(pattern));
-    }
-
 }
