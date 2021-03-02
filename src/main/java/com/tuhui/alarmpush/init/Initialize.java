@@ -12,6 +12,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+
 /**
  * @author lchao
  */
@@ -61,7 +63,7 @@ public class Initialize  implements CommandLineRunner {
         sfaceService = faceService;
         spoliceService = policeService;
         salarmService = alarmService;
-        fileListener.start(dir,suffix);
+        fileListener.start(dir +  "1" ,suffix);
         log.info("开始监控");
     }
 }

@@ -144,6 +144,8 @@ public class FileListener extends FileAlterationListenerAdaptor {
         super.onStop(observer);
     }
 
+    public static   FileAlterationMonitor monitor;
+
     public  void start(String dir,String suffix) throws Exception{
         // 监控目录
         String rootDir = dir;
@@ -163,7 +165,7 @@ public class FileListener extends FileAlterationListenerAdaptor {
         //FileAlterationObserver observer = new FileAlterationObserver(new File(rootDir));
         observer.addListener(new FileListener());
         //创建文件变化监听器
-        FileAlterationMonitor monitor = new FileAlterationMonitor(interval, observer);
+         monitor = new FileAlterationMonitor(interval, observer);
         // 开始监控
         monitor.start();
     }
